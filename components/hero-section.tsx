@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { ScrollAnimation } from "@/components/scroll-animation";
 
 export function HeroSection({ id }: { id?: string }) {
   return (
@@ -20,45 +23,47 @@ export function HeroSection({ id }: { id?: string }) {
 
       {/* Content */}
       <div className="container mx-auto px-4">
-        <div className="max-w-2xl">
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-            Khám Phá Vẻ Đẹp
-            <br />
-            <span className="text-primary">Tự Nhiên</span> Của Bạn
-          </h1>
-          <p className="text-white/90 text-sm xs:text-base md:text-lg mb-8 max-w-lg">
-            Chúng tôi cam kết mang đến cho bạn những dịch vụ thẩm mỹ tốt nhất
-            với đội ngũ chuyên gia hàng đầu và công nghệ hiện đại.
-          </p>
+        <ScrollAnimation>
+          <div className="max-w-2xl">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+              Khám Phá Vẻ Đẹp
+              <br />
+              <span className="text-primary">Tự Nhiên</span> Của Bạn
+            </h1>
+            <p className="text-white/90 text-sm xs:text-base md:text-lg mb-8 max-w-lg">
+              Chúng tôi cam kết mang đến cho bạn những dịch vụ thẩm mỹ tốt nhất
+              với đội ngũ chuyên gia hàng đầu và công nghệ hiện đại.
+            </p>
 
-          {/* Stats */}
-          <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
-            <div>
-              <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
-                10+
-              </p>
-              <p className="text-white/80 text-sm xs:text-base">
-                Năm Kinh Nghiệm
-              </p>
-            </div>
-            <div>
-              <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
-                50k+
-              </p>
-              <p className="text-white/80 text-sm xs:text-base">
-                Khách Hàng Tin Tưởng
-              </p>
-            </div>
-            <div className="col-span-2 sm:col-span-1">
-              <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
-                100%
-              </p>
-              <p className="text-white/80 text-sm xs:text-base">
-                Khách Hàng Hài Lòng
-              </p>
+            {/* Stats */}
+            <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
+              <div>
+                <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
+                  10+
+                </p>
+                <p className="text-white/80 text-sm xs:text-base">
+                  Năm Kinh Nghiệm
+                </p>
+              </div>
+              <div>
+                <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
+                  50k+
+                </p>
+                <p className="text-white/80 text-sm xs:text-base">
+                  Khách Hàng Tin Tưởng
+                </p>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <p className="text-2xl xs:text-3xl md:text-4xl font-bold text-primary mb-1">
+                  100%
+                </p>
+                <p className="text-white/80 text-sm xs:text-base">
+                  Khách Hàng Hài Lòng
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollAnimation>
       </div>
     </section>
   );

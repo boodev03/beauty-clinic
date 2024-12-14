@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { staggerContainer, fadeInUp } from "@/components/scroll-animation";
 
 const services = [
   {
@@ -59,77 +61,83 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-4">
+    <section className="py-16 px-4">
       <div className="container mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-            Dịch Vụ Nổi Bật
-          </h2>
-          <div className="w-16 h-0.5 bg-primary mx-auto rounded-full mb-4" />
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base">
-            Khám phá các dịch vụ thẩm mỹ cao cấp của chúng tôi, được thực hiện
-            bởi đội ngũ chuyên gia hàng đầu
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {services.map((service) => (
-            <Link
-              href={service.href}
-              key={service.title}
-              className="group block"
-            >
-              <div className="relative bg-card rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
-                <div className="relative h-[280px] sm:h-[300px] lg:h-[320px] overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Dịch Vụ Nổi Bật
+            </h2>
+            <div className="w-16 h-0.5 bg-primary mx-auto rounded-full mb-4" />
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base">
+              Khám phá các dịch vụ thẩm mỹ cao cấp của chúng tôi, được thực hiện
+              bởi đội ngũ chuyên gia hàng đầu
+            </p>
+          </motion.div>
 
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-5 lg:p-6">
-                    {/* Icon and Title */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-lg sm:text-xl bg-white/10 backdrop-blur-sm p-1.5 rounded-lg">
-                        {service.icon}
-                      </span>
-                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">
-                        {service.title}
-                      </h3>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {services.map((service) => (
+              <motion.div key={service.title} variants={fadeInUp}>
+                <Link href={service.href} className="group block">
+                  <div className="relative bg-card rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <div className="relative h-[280px] sm:h-[300px] lg:h-[320px] overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
 
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm text-white/90 mb-4 line-clamp-2">
-                      {service.description}
-                    </p>
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-5 lg:p-6">
+                        {/* Icon and Title */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-lg sm:text-xl bg-white/10 backdrop-blur-sm p-1.5 rounded-lg">
+                            {service.icon}
+                          </span>
+                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">
+                            {service.title}
+                          </h3>
+                        </div>
 
-                    {/* Features */}
-                    <div className="flex gap-1.5 sm:gap-2 mb-4 flex-wrap">
-                      {service.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="px-2 sm:px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-medium text-white"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
+                        {/* Description */}
+                        <p className="text-xs sm:text-sm text-white/90 mb-4 line-clamp-2">
+                          {service.description}
+                        </p>
 
-                    {/* Call to Action */}
-                    <div className="flex items-center text-white group-hover:text-primary transition-colors">
-                      <span className="text-xs sm:text-sm font-medium">
-                        Tìm hiểu thêm
-                      </span>
-                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        {/* Features */}
+                        <div className="flex gap-1.5 sm:gap-2 mb-4 flex-wrap">
+                          {service.features.map((feature) => (
+                            <span
+                              key={feature}
+                              className="px-2 sm:px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-medium text-white"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Call to Action */}
+                        <div className="flex items-center text-white group-hover:text-primary transition-colors">
+                          <span className="text-xs sm:text-sm font-medium">
+                            Tìm hiểu thêm
+                          </span>
+                          <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

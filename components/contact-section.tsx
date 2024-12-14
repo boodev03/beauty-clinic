@@ -1,8 +1,16 @@
 "use client";
 
+import { fadeInUp, staggerContainer } from "@/components/scroll-animation";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { motion } from "framer-motion";
 import {
   CalendarRange,
   Mail,
@@ -12,25 +20,18 @@ import {
   User,
 } from "lucide-react";
 import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Input } from "./ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from "./ui/select";
+import { Textarea } from "./ui/textarea";
+import { Button } from "./ui/button";
 
 const services = [
   "Phun mày",
@@ -86,195 +87,208 @@ export function ContactSection() {
       </div>
 
       <div className="container mx-auto">
-        {/* Section Title */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-white">
-            Đặt Lịch Tư Vấn
-          </h2>
-          <div className="w-16 h-0.5 bg-primary mx-auto rounded-full mb-4" />
-          <p className="text-white/80 max-w-2xl mx-auto text-sm sm:text-base">
-            Để lại thông tin để được tư vấn miễn phí về dịch vụ phù hợp với bạn
-          </p>
-        </div>
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {/* Section Title */}
+          <motion.div
+            variants={fadeInUp}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 text-white">
+              Đặt Lịch Tư Vấn
+            </h2>
+            <div className="w-16 h-0.5 bg-primary mx-auto rounded-full mb-4" />
+            <p className="text-white/80 max-w-2xl mx-auto text-sm sm:text-base">
+              Để lại thông tin để được tư vấn miễn phí về dịch vụ phù hợp với
+              bạn
+            </p>
+          </motion.div>
 
-        {/* Contact Form */}
-        <div className="max-w-xl mx-auto">
-          <div className="relative">
-            {/* Form glow effect */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-primary/20 to-primary/10 rounded-[24px] blur-2xl" />
+          {/* Contact Form */}
+          <motion.div variants={fadeInUp} className="max-w-xl mx-auto">
+            <div className="relative">
+              {/* Form glow effect */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-primary/20 to-primary/10 rounded-[24px] blur-2xl" />
 
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4 sm:space-y-6 bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-white/20"
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2 text-white/90">
-                        <User className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">Họ và tên</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-9 sm:h-10 text-sm sm:text-base"
-                          placeholder="Nguyễn Văn A"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-300" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2 text-white/90">
-                        <Phone className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">
-                          Số điện thoại
-                        </span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-9 sm:h-10 text-sm sm:text-base"
-                          placeholder="0912345678"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-300" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2 text-white/90">
-                        <Mail className="w-4 h-4" />
-                        Email
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-primary/50 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors"
-                          placeholder="example@gmail.com"
-                          type="email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-300" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="service"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2 text-white/90">
-                        <CalendarRange className="w-4 h-4" />
-                        Dịch vụ quan tâm
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4 sm:space-y-6 bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-white/20"
+                >
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-white/90">
+                          <User className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">
+                            Họ và tên
+                          </span>
+                        </FormLabel>
                         <FormControl>
-                          <SelectTrigger className="bg-white/10 border-white/20 text-white focus:border-primary/50 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors">
-                            <SelectValue placeholder="Chọn dịch vụ" />
-                          </SelectTrigger>
+                          <Input
+                            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-9 sm:h-10 text-sm sm:text-base"
+                            placeholder="Nguyễn Văn A"
+                            {...field}
+                          />
                         </FormControl>
-                        <SelectContent>
-                          {services.map((service) => (
-                            <SelectItem key={service} value={service}>
-                              {service}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage className="text-red-300" />
-                    </FormItem>
-                  )}
-                />
+                        <FormMessage className="text-red-300" />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2 text-white/90">
-                        <MessageSquare className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">Lời nhắn</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
-                          placeholder="Nhập lời nhắn của bạn..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-300" />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-white/90">
+                          <Phone className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">
+                            Số điện thoại
+                          </span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-9 sm:h-10 text-sm sm:text-base"
+                            placeholder="0912345678"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-300" />
+                      </FormItem>
+                    )}
+                  />
 
-                {/* Contact Info */}
-                <div className="pt-6 mt-6 border-t border-white/10">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                    <div className="space-y-3">
-                      <p className="flex items-center gap-2 text-white/80">
-                        <Phone className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">
-                          0912 345 678
-                        </span>
-                      </p>
-                      <p className="flex items-center gap-2 text-white/80">
-                        <Mail className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">
-                          contact@beautyclinic.com
-                        </span>
-                      </p>
-                    </div>
-                    <div>
-                      <p className="flex items-center gap-2 text-white/80">
-                        <MapPin className="w-4 h-4" />
-                        <span className="text-sm sm:text-base">
-                          123 Đường ABC, Quận XYZ, TP.HCM
-                        </span>
-                      </p>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-white/90">
+                          <Mail className="w-4 h-4" />
+                          Email
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-primary/50 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors"
+                            placeholder="example@gmail.com"
+                            type="email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-300" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="service"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-white/90">
+                          <CalendarRange className="w-4 h-4" />
+                          Dịch vụ quan tâm
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="bg-white/10 border-white/20 text-white focus:border-primary/50 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors">
+                              <SelectValue placeholder="Chọn dịch vụ" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {services.map((service) => (
+                              <SelectItem key={service} value={service}>
+                                {service}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-red-300" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2 text-white/90">
+                          <MessageSquare className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">Lời nhắn</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea
+                            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                            placeholder="Nhập lời nhắn của bạn..."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-300" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Contact Info */}
+                  <div className="pt-6 mt-6 border-t border-white/10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="space-y-3">
+                        <p className="flex items-center gap-2 text-white/80">
+                          <Phone className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">
+                            0912 345 678
+                          </span>
+                        </p>
+                        <p className="flex items-center gap-2 text-white/80">
+                          <Mail className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">
+                            contact@beautyclinic.com
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="flex items-center gap-2 text-white/80">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-sm sm:text-base">
+                            123 Đường ABC, Quận XYZ, TP.HCM
+                          </span>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Submit Button */}
-                <div className="space-y-4">
-                  <p className="text-[11px] sm:text-xs text-white/70">
-                    Bằng cách gửi biểu mẫu này, bạn đồng ý cho phép chúng tôi sử
-                    dụng thông tin của bạn theo{" "}
-                    <a href="#" className="text-primary hover:underline">
-                      Chính sách bảo mật
-                    </a>{" "}
-                    của chúng tôi.
-                  </p>
-                  <Button
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 text-white h-9 sm:h-10 text-sm sm:text-base"
-                  >
-                    Đặt Lịch Ngay
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        </div>
+                  {/* Submit Button */}
+                  <div className="space-y-4">
+                    <p className="text-[11px] sm:text-xs text-white/70">
+                      Bằng cách gửi biểu mẫu này, bạn đồng ý cho phép chúng tôi
+                      sử dụng thông tin của bạn theo{" "}
+                      <a href="#" className="text-primary hover:underline">
+                        Chính sách bảo mật
+                      </a>{" "}
+                      của chúng tôi.
+                    </p>
+                    <Button
+                      type="submit"
+                      className="w-full bg-primary hover:bg-primary/90 text-white h-9 sm:h-10 text-sm sm:text-base"
+                    >
+                      Đặt Lịch Ngay
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
